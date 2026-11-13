@@ -1,0 +1,249 @@
+/* No Distract by Wasted — hide-shorts.css
+   The :has() rules below are gated behind data-ns-* attributes that
+   content.js sets on <html> based on the user's saved settings, so
+   toggling a feature off in the popup takes effect immediately without
+   a page reload. The ns-hide-* classes are the MutationObserver
+   backstop from content.js for anything :has() alone would miss; they
+   are unconditional here because content.js only ever adds them while
+   the matching feature is enabled, and removes them the instant it's
+   turned off. */
+
+/* ================= Hide the "up next" sidebar ================= */
+/* Only the classic related-videos/autoplay module — NOT the whole
+   #secondary container. YouTube also renders the Description, Comments,
+   and Ask panels inside that same container when you click their icons,
+   so hiding #secondary wholesale silently broke those too. */
+
+html[data-ns-sidebar="on"] ytd-watch-flexy ytd-watch-next-secondary-results-renderer,
+html[data-ns-sidebar="on"] ytd-watch-flexy ytd-compact-autoplay-renderer {
+  display: none !important;
+}
+
+/* The related-videos grid YouTube overlays directly on the player once
+   a video finishes ("end screen"), plus the small suggestion cards
+   ("i" teasers) that pop up near the end of a video — same "up next"
+   concept as the sidebar, just rendered inside the player itself. */
+html[data-ns-sidebar="on"] .html5-endscreen,
+html[data-ns-sidebar="on"] .ytp-ce-element,
+html[data-ns-sidebar="on"] .ytp-ce-covering-overlay,
+html[data-ns-sidebar="on"] .ytp-cards-teaser {
+  display: none !important;
+}
+
+/* ================= Hide the left navigation menu ================= */
+
+html[data-ns-guide="on"] tp-yt-app-drawer#guide,
+html[data-ns-guide="on"] ytd-mini-guide-renderer {
+  display: none !important;
+}
+
+/* ================= Block Shorts ================= */
+html[data-ns-shorts="on"] ytd-reel-shelf-renderer,
+html[data-ns-shorts="on"] ytd-rich-shelf-renderer[is-shorts],
+html[data-ns-shorts="on"] ytd-reel-item-renderer,
+html[data-ns-shorts="on"] ytm-shorts-lockup-view-model,
+html[data-ns-shorts="on"] ytm-shorts-lockup-view-model-v2,
+html[data-ns-shorts="on"] ytd-guide-entry-renderer:has(a[title="Shorts"]),
+html[data-ns-shorts="on"] ytd-mini-guide-entry-renderer[aria-label="Shorts"],
+html[data-ns-shorts="on"] yt-tab-shape[tab-title="Shorts"],
+html[data-ns-shorts="on"] ytd-video-renderer:has(a[href^="/shorts/"]),
+html[data-ns-shorts="on"] ytd-rich-item-renderer:has(a[href^="/shorts/"]),
+html[data-ns-shorts="on"] ytd-grid-video-renderer:has(a[href^="/shorts/"]),
+html[data-ns-shorts="on"] ytd-compact-video-renderer:has(a[href^="/shorts/"]) {
+  display: none !important;
+}
+
+/* ================= Keep the top bar always visible ================= */
+/* Not a toggle — always on. YouTube auto-hides the masthead (logo,
+   search bar, mic) on scroll down and brings it back on scroll up,
+   usually via a transform animation rather than display/visibility.
+   Forcing transform back to none — plus covering the other properties
+   a hide animation might use — overrides that regardless of which one
+   it turns out to be. */
+
+ytd-masthead,
+#masthead-container,
+#masthead {
+  transform: none !important;
+  position: sticky !important;
+  top: 0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* ================= Focus home feed on in-progress videos ================= */
+
+/* Hide every top-level video card on the home feed unless it's carrying
+   the "resume playback" progress-bar overlay YouTube shows on videos
+   you've started but not finished. */
+html[data-ns-homefeed="on"] ytd-browse[page-subtype="home"]
+  ytd-rich-item-renderer:not(:has(ytd-thumbnail-overlay-resume-playback-renderer)) {
+  display: none !important;
+}
+
+/* Hide every shelf on the home feed unless it contains at least one
+   in-progress video (this is normally the "Continue watching" shelf). */
+html[data-ns-homefeed="on"] ytd-browse[page-subtype="home"]
+  ytd-rich-shelf-renderer:not(:has(ytd-thumbnail-overlay-resume-playback-renderer)) {
+  display: none !important;
+}
+
+/* ================= "No Distraction is ON" focus screen ================= */
+/* When Focus Home is enabled, content.js hides the entire home-feed
+   content column (filter chips, "Explore more topics", the video grid
+   — everything) via .ns-hide-primary, and inserts this banner as a
+   sibling so it stays visible and takes over the middle of the page. */
+
+.ns-hide-primary {
+  display: none !important;
+}
+
+#ns-focus-banner {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px 16px;
+  text-align: center;
+  overflow: hidden;
+  background: #ffffff;
+  animation: ns-banner-fade-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html[dark] #ns-focus-banner {
+  background: #0f0f0f;
+}
+
+/* Soft rotating glow behind the text */
+.ns-focus-banner-ring {
+  position: absolute;
+  width: 460px;
+  height: 460px;
+  max-width: 90vw;
+  max-height: 90vw;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(219, 40, 40, 0.4) 20%,
+    transparent 40%,
+    transparent 60%,
+    rgba(219, 40, 40, 0.25) 80%,
+    transparent 100%
+  );
+  filter: blur(50px);
+  animation: ns-ring-spin 8s linear infinite;
+  z-index: 0;
+}
+
+#ns-focus-banner .ns-focus-banner-title {
+  position: relative;
+  z-index: 1;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #0f0f0f;
+  animation: ns-title-glow 2.8s ease-in-out infinite;
+}
+
+#ns-focus-banner .ns-focus-banner-sub {
+  position: relative;
+  z-index: 1;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: #db2828;
+  animation: ns-sub-pulse 2.8s ease-in-out infinite;
+}
+
+/* YouTube's dark theme sets the "dark" attribute on <html> */
+html[dark] #ns-focus-banner .ns-focus-banner-title {
+  color: #f5f5f5;
+}
+
+@keyframes ns-banner-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes ns-ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ns-title-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 16px rgba(219, 40, 40, 0.35),
+      0 0 40px rgba(219, 40, 40, 0.15);
+  }
+  50% {
+    text-shadow: 0 0 28px rgba(219, 40, 40, 0.65),
+      0 0 80px rgba(219, 40, 40, 0.35);
+  }
+}
+
+@keyframes ns-sub-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ns-focus-banner,
+  .ns-focus-banner-ring,
+  #ns-focus-banner .ns-focus-banner-title,
+  #ns-focus-banner .ns-focus-banner-sub {
+    animation: none !important;
+  }
+}
+
+/* ================= Block YouTube ads ================= */
+/* Gated on data-ns-adblock, which adblock.js already sets on every
+   site (including YouTube) based on the shared "Block ads" setting.
+   In-video ads are handled separately in content.js (auto-skip /
+   mute + fast-forward), since they can't be hidden with CSS alone. */
+
+html[data-ns-adblock="on"] ytd-display-ad-renderer,
+html[data-ns-adblock="on"] ytd-promoted-sparkles-web-renderer,
+html[data-ns-adblock="on"] ytd-promoted-video-renderer,
+html[data-ns-adblock="on"] ytd-ad-slot-renderer,
+html[data-ns-adblock="on"] ytd-in-feed-ad-layout-renderer,
+html[data-ns-adblock="on"] ytd-companion-slot-renderer,
+html[data-ns-adblock="on"] ytd-action-companion-ad-renderer,
+html[data-ns-adblock="on"] ytd-banner-promo-renderer,
+html[data-ns-adblock="on"] #masthead-ad,
+html[data-ns-adblock="on"] .ytp-ad-overlay-container,
+html[data-ns-adblock="on"] .ytp-ad-image-overlay,
+html[data-ns-adblock="on"] .ytp-ad-text-overlay {
+  display: none !important;
+}
+
+/* ================= MutationObserver backstop classes ================= */
+
+.ns-hide-sidebar,
+.ns-hide-shorts,
+.ns-hide-guide,
+.ns-hide-homefeed {
+  display: none !important;
+}

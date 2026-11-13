@@ -1,0 +1,24 @@
+/* No Distract by Wasted — bw-mode.css
+ * Site-wide black & white mode via a plain CSS grayscale filter. Gated
+ * behind data-ns-bw, which adblock.js sets on <html> based on the saved
+ * "bwMode" setting, so it toggles instantly from the popup.
+ *
+ * Unlike dark-mode.css's invert+hue-rotate trick, grayscale needs no
+ * "is the page already X" check and no counter-filtering of images —
+ * desaturating a photo is exactly what black & white mode is supposed
+ * to do to it, not something to correct for.
+ *
+ * Combines cleanly with Dark Reader: the rule below with both
+ * attributes has higher specificity (two attribute selectors) than
+ * either single-attribute rule, so it always wins when both modes are
+ * on at once — regardless of which stylesheet happens to load first.
+ */
+
+html[data-ns-bw="on"] {
+  filter: grayscale(1);
+}
+
+html[data-ns-dark="on"][data-ns-bw="on"] {
+  filter: invert(1) hue-rotate(180deg) contrast(0.92) brightness(1.05)
+    grayscale(1);
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>No Distract by Wasted</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="header-left">
+      <span class="logo-ring">
+        <img src="icon32.png" alt="" class="logo" />
+      </span>
+      <div>
+        <h1 class="glitch" data-text="NO DISTRACT">NO DISTRACT</h1>
+        <p class="subtitle">// SYSTEM BY WASTED</p>
+      </div>
+    </div>
+
+    <label class="power" title="Turn the whole extension on or off">
+      <input type="checkbox" id="masterEnabled" aria-label="Extension on/off" />
+      <span class="power-btn">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M7.2 6.6a8 8 0 1 0 9.6 0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+      </span>
+    </label>
+
+    <a
+      class="support-btn"
+      href="https://guns.lol/saurav"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Support / Contact"
+      aria-label="Support"
+    >
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M4 13v-1a8 8 0 0 1 16 0v1"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
+        <rect x="2.5" y="12" width="4.5" height="6" rx="1.5" stroke="currentColor" stroke-width="1.8" />
+        <rect x="17" y="12" width="4.5" height="6" rx="1.5" stroke="currentColor" stroke-width="1.8" />
+        <path
+          d="M19.5 18v1a3 3 0 0 1-3 3h-3.2"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
+        <circle cx="12" cy="21" r="1.3" stroke="currentColor" stroke-width="1.6" />
+      </svg>
+    </a>
+  </header>
+
+  <main class="panel">
+    <section class="group" data-accent="cyan">
+      <h2 class="group-title"><span class="bracket">[</span>YOUTUBE<span class="bracket">]</span></h2>
+
+      <label class="toggle-row">
+        <span class="toggle-text">
+          <span class="toggle-label">Hide "Up next" sidebar<span class="help" tabindex="0" aria-label="Removes the related-videos column on watch pages" data-tip="Removes the related-videos column on watch pages">?</span></span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="hideSidebar" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-text">
+          <span class="toggle-label">Hide navigation menu<span class="help" tabindex="0" aria-label="Removes the left-hand Home/Subscriptions/You menu" data-tip="Removes the left-hand Home/Subscriptions/You menu">?</span></span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="hideGuide" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-text">
+          <span class="toggle-label">Focus home feed<span class="help" tabindex="0" aria-label="Only show videos you&#x27;re already partway through" data-tip="Only show videos you&#x27;re already partway through">?</span></span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="homeFeedFilter" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-text">
+          <span class="toggle-label">Block Shorts<span class="help" tabindex="0" aria-label="Hides Shorts shelves, cards and menu links, and opens Shorts in the normal player" data-tip="Hides Shorts shelves, cards and menu links, and opens Shorts in the normal player">?</span></span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="blockShorts" />
+          <span class="slider"></span>
+        </span>
+      </label>
+    </section>
+
+    <section class="group" data-accent="magenta">
+      <h2 class="group-title"><span class="bracket">[</span>EVERYWHERE<span class="bracket">]</span></h2>
+
+      <label class="toggle-row">
+        <span class="toggle-text">
+          <span class="toggle-label">Block ads<span class="help" tabindex="0" aria-label="Blocks ads and trackers on every website, hides YouTube&#x27;s banner/companion ads, and auto-skips in-video ads" data-tip="Blocks ads and trackers on every website, hides YouTube&#x27;s banner/companion ads, and auto-skips in-video ads">?</span></span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="adBlock" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-text">
+          <span class="toggle-label">Block popup ads<span class="help" tabindex="0" aria-label="Closes promotional overlays and interstitials (&quot;Enroll now!&quot; style popups) — best-effort, turn off if a site&#x27;s own popup ever gets caught by mistake" data-tip="Closes promotional overlays and interstitials (&quot;Enroll now!&quot; style popups) — best-effort, turn off if a site&#x27;s own popup ever gets caught by mistake">?</span></span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="blockPopups" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-text">
+          <span class="toggle-label">Dark Reader<span class="help" tabindex="0" aria-label="Forces a dark theme on every website with a simple color-inversion filter — lightweight, not as refined as a dedicated dark-mode extension" data-tip="Forces a dark theme on every website with a simple color-inversion filter — lightweight, not as refined as a dedicated dark-mode extension">?</span></span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="darkReader" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-text">
+          <span class="toggle-label">Black &amp; white mode<span class="help" tabindex="0" aria-label="Desaturates every website to grayscale — combines fine with Dark Reader if both are on" data-tip="Desaturates every website to grayscale — combines fine with Dark Reader if both are on">?</span></span>
+        </span>
+        <span class="switch">
+          <input type="checkbox" id="bwMode" />
+          <span class="slider"></span>
+        </span>
+      </label>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span id="status" class="status" aria-live="polite">SYSTEM READY</span>
+    <span id="version" class="version"></span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
