@@ -1,0 +1,30 @@
+/* No Distract by Wasted — ad-hide.css
+   Cosmetic backstop for the network-level ad-blocking ruleset. Gated
+   behind data-ns-adblock, which adblock.js sets on <html> based on the
+   saved settings, so this can be toggled off instantly from the popup. */
+
+html[data-ns-adblock="on"] [id^="google_ads_iframe"],
+html[data-ns-adblock="on"] [id^="div-gpt-ad"],
+html[data-ns-adblock="on"] ins.adsbygoogle,
+html[data-ns-adblock="on"] .adsbygoogle,
+html[data-ns-adblock="on"] [class*="ad-slot" i],
+html[data-ns-adblock="on"] [class*="ad-banner" i],
+html[data-ns-adblock="on"] [class*="advertisement-" i],
+html[data-ns-adblock="on"] [id*="-ad-container" i],
+html[data-ns-adblock="on"] iframe[src*="doubleclick.net"],
+html[data-ns-adblock="on"] iframe[src*="googlesyndication.com"] {
+  display: none !important;
+}
+
+/* MutationObserver backstop class from adblock.js — unconditional,
+   since the script only adds it while ad blocking is enabled. */
+.ns-ad-hide {
+  display: none !important;
+}
+
+/* Promotional popup/modal overlays detected heuristically by
+   adblock.js (see the blockPopups setting) — same reasoning: JS only
+   ever adds this while that toggle is on. */
+.ns-popup-hide {
+  display: none !important;
+}

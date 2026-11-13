@@ -1,0 +1,33 @@
+/* No Distract by Wasted — dark-mode.css
+ * A lightweight, universal "force dark mode" — not a full replacement
+ * for something like Dark Reader (which ships thousands of per-site
+ * fixes), but a simple filter-based approach that works reasonably
+ * well on most pages with zero site-specific tuning: invert the whole
+ * page, then invert images/video/embeds a second time so they land
+ * back at their original colors instead of looking like photo
+ * negatives.
+ *
+ * Gated behind data-ns-dark, which adblock.js sets on <html> based on
+ * the saved "darkReader" setting, so this can be toggled instantly.
+ */
+
+html[data-ns-dark="on"] {
+  filter: invert(1) hue-rotate(180deg) contrast(0.92) brightness(1.05);
+  background: #fff;
+}
+
+html[data-ns-dark="on"] img,
+html[data-ns-dark="on"] video,
+html[data-ns-dark="on"] iframe,
+html[data-ns-dark="on"] canvas,
+html[data-ns-dark="on"] svg image,
+html[data-ns-dark="on"] picture {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Counter-invert our own injected UI so it keeps its intended colors
+   instead of getting flipped along with the rest of the page. */
+html[data-ns-dark="on"] #ns-focus-banner,
+html[data-ns-dark="on"] #ns-focus-banner * {
+  filter: invert(1) hue-rotate(180deg) !important;
+}

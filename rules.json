@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "requestDomains": [
+        "doubleclick.net",
+        "googlesyndication.com",
+        "googleadservices.com",
+        "google-analytics.com",
+        "adservice.google.com",
+        "adnxs.com",
+        "adsrvr.org",
+        "taboola.com",
+        "outbrain.com",
+        "criteo.com",
+        "criteo.net",
+        "moatads.com",
+        "scorecardresearch.com",
+        "quantserve.com",
+        "quantcount.com",
+        "adform.net",
+        "pubmatic.com",
+        "rubiconproject.com",
+        "openx.net",
+        "media.net",
+        "exoclick.com",
+        "popads.net",
+        "propellerads.com",
+        "mgid.com",
+        "revcontent.com",
+        "zedo.com",
+        "adroll.com",
+        "bidswitch.net",
+        "casalemedia.com",
+        "contextweb.com",
+        "indexexchange.com",
+        "smartadserver.com",
+        "yieldmo.com",
+        "sharethrough.com",
+        "teads.tv",
+        "amazon-adsystem.com",
+        "advertising.com",
+        "adsafeprotected.com",
+        "yieldlab.net",
+        "spotxchange.com",
+        "smartyads.com",
+        "trafficjunky.net",
+        "adcolony.com",
+        "chartboost.com",
+        "vungle.com",
+        "unityads.unity3d.com",
+        "ads-twitter.com",
+        "connect.facebook.net"
+      ],
+      "resourceTypes": [
+        "script",
+        "image",
+        "xmlhttprequest",
+        "sub_frame",
+        "media",
+        "font",
+        "stylesheet",
+        "object",
+        "ping",
+        "csp_report",
+        "websocket",
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||youtube.com/pagead/*",
+      "resourceTypes": ["xmlhttprequest", "script", "ping", "sub_frame", "other"]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*/api/stats/ads*",
+      "resourceTypes": ["xmlhttprequest", "ping", "other"]
+    }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "*/ptracking*",
+      "resourceTypes": ["xmlhttprequest", "ping", "other"]
+    }
+  }
+]

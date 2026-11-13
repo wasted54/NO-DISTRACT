@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "No Distract by Wasted",
+  "version": "5.7",
+  "description": "Blocks Shorts, hides the watch-page sidebar and navigation menu, focuses your home feed on in-progress videos, blocks ads and promotional popups (including YouTube's), and offers dark mode and black & white mode — all on every website, toggleable from one panel.",
+  "permissions": ["storage", "declarativeNetRequest"],
+  "host_permissions": ["*://*.youtube.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ads_ruleset",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["hide-shorts.css"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["adblock.js"],
+      "css": ["ad-hide.css", "dark-mode.css", "bw-mode.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  }
+}
